@@ -23,6 +23,8 @@ import Form from './Form';
 import Input from './Input';
 import DateFilterSection from './DateFilterSection';
 import SortFilterSection from './SortFilterSection';
+import StateFilterSection from './StateFilterSection';
+import FilterFilterSection from './FilterFilterSection';
 import Section from './Section';
 import messages from './messages';
 import { loadIssues } from '../App/actions';
@@ -80,6 +82,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                 onChange={this.props.onChangeReponame}
                 disabled
               />
+              {/* <FilterFilterSection /> */}
+              <StateFilterSection />
               <DateFilterSection />
               <SortFilterSection />
             </Form>

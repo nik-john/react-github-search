@@ -10,7 +10,7 @@ import request from 'utils/request';
 import { makeSelectState, makeSelectFilter, makeSelectUsername, makeSelectReponame, makeSelectSinceDate, makeSelectSortBy, makeSelectSortOrder } from 'containers/HomePage/selectors';
 
 import { LOAD_ISSUES } from '../App/constants';
-import { CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER } from './constants';
+import { CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER, CHANGE_FILTER, CHANGE_STATE } from './constants';
 
 /**
  * Github repos request/response handler
@@ -44,7 +44,7 @@ export function* getIssues() {
   const stateParam = state ? `&state=${state}` : '';
   const filter = yield select(makeSelectFilter());
   const filterParam = state ? `&filter=${filter}` : '';
-  const requestURL = `https://api.github.com/repos/${username}/${reponame}/issues?${stateParam}${filterParam}${sinceDateParam}${sortParams}`;
+  const requestURL = `https://api.github.com/repos/${username}/${reponame}/issues?per_page=100${stateParam}${filterParam}${sinceDateParam}${sortParams}`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -68,4 +68,6 @@ export default function* githubData() {
   yield takeLatest(CHANGE_SINCE_DATE, getIssues);
   yield takeLatest(CHANGE_SORT_BY, getIssues);
   yield takeLatest(CHANGE_SORT_ORDER, getIssues);
+  yield takeLatest(CHANGE_FILTER, getIssues);
+  yield takeLatest(CHANGE_STATE, getIssues);
 }

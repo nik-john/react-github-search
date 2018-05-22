@@ -6,31 +6,31 @@ import 'react-select/dist/react-select.css';
 
 import Wrapper from './Wrapper';
 import messages from './messages';
-import { STATE_OPTIONS } from '../../containers/HomePage/constants';
+import { FILTER_OPTIONS } from '../../containers/HomePage/constants';
 function createOption(option) {
   return { value: option, label: option };
 }
-function StateFilter(props) {
-  const optionsObjectArray = STATE_OPTIONS.map(createOption);
+function FilterFilter(props) {
+  const optionsObjectArray = FILTER_OPTIONS.map(createOption);
   return (
     <Wrapper>
       <FormattedMessage {...messages.label} />
       <Select
         options={optionsObjectArray}
-        value={props.state}
+        value={props.filter}
         onChange={props.handleChange}
       />
     </Wrapper>
   );
 }
 
-StateFilter.propTypes = {
-  state: PropTypes.oneOf(STATE_OPTIONS),
+FilterFilter.propTypes = {
+  filter: PropTypes.oneOf(FILTER_OPTIONS),
   handleChange: PropTypes.func,
 };
 
-StateFilter.defaultprops = {
-  sortBy: STATE_OPTIONS[0],
+FilterFilter.defaultprops = {
+  sortBy: FILTER_OPTIONS[0],
 };
 
-export default StateFilter;
+export default FilterFilter;
