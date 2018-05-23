@@ -42,9 +42,9 @@ The live demo is broken as of now due to a path issue. I'm working to resolve th
 
 There are three major components reused throughout this application:
 
-1. The IssueListItem component, which forms the Issue List
-2. The SelectFilterComponent which is used in all filters that have dropdowns
-3. The TextFilterComponent which is used in all filters that have string searches
+1. The `IssueListItem` component, which forms the Issue List
+2. The `SelectFilterComponent` which is used in all filters that have dropdowns
+3. The `TextFilterComponent` which is used in all filters that have string searches
 
 Other components like the A, Button, H2 etc. are also highly reusable, as they are all pure functional components that are styled using Styled Components and are therefore self encapsulating.
 
