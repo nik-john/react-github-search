@@ -5,10 +5,14 @@
 import styled from 'styled-components';
 
 const A = styled.a`
-  color: #41addd;
-
+  font-weight: bold;
+  font-size: 1em;
+  color: #24292e;
+  text-decoration: none;
   &:hover {
-    color: #6cc0e5;
+    text-decoration: none;
+    cursor: pointer;
+    color: #0366d6;    
   }
 `;
 

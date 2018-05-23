@@ -16,7 +16,7 @@
  */
 
 import {
-  CHANGE_USERNAME, CHANGE_REPONAME, CHANGE_SINCE_DATE, CHANGE_SORT_ORDER, CHANGE_SORT_BY, CHANGE_STATE, CHANGE_FILTER,
+  CHANGE_USERNAME, CHANGE_REPONAME, CHANGE_SINCE_DATE, CHANGE_SORT_ORDER, CHANGE_SORT_BY, CHANGE_STATE, CHANGE_ASSIGNEE, CHANGE_CREATOR, CHANGE_MENTIONED, CHANGE_LABELS, CHANGE_MILESTONE,
 } from './constants';
 
 /**
@@ -43,6 +43,71 @@ export function changeReponame(name) {
   return {
     type: CHANGE_REPONAME,
     name,
+  };
+}
+/**
+ * Changes the Assignee input field of the form
+ *
+ * @param  {assignee} assignee The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_ASSIGNEE
+ */
+export function changeAssignee(assignee) {
+  return {
+    type: CHANGE_ASSIGNEE,
+    assignee,
+  };
+}
+/**
+ * Changes the creator input field of the form
+ *
+ * @param  {creator} creator The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_CREATOR
+ */
+export function changeCreator(creator) {
+  return {
+    type: CHANGE_CREATOR,
+    creator,
+  };
+}
+/**
+ * Changes the mentioned input field of the form
+ *
+ * @param  {mentioned} mentioned The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_MENTIONED
+ */
+export function changeMentioned(mentioned) {
+  return {
+    type: CHANGE_MENTIONED,
+    mentioned,
+  };
+}
+/**
+ * Changes the labels input field of the form
+ *
+ * @param  {labels} labels The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_LABELS
+ */
+export function changeLabels(labels) {
+  return {
+    type: CHANGE_LABELS,
+    labels,
+  };
+}
+/**
+ * Changes the milestone input field of the form
+ *
+ * @param  {milestone} milestone The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_MILESTONE
+ */
+export function changeMilestone(milestone) {
+  return {
+    type: CHANGE_MILESTONE,
+    milestone,
   };
 }
 /**
@@ -95,18 +160,5 @@ export function changeState(state) {
   return {
     type: CHANGE_STATE,
     state,
-  };
-}
-/**
- * Changes the filter input field of the form
- *
- * @param  {string} filter The new value of the input field
- *
- * @return {object}    An action object with a type of CHANGE_FILTER
- */
-export function changeFilter(filter) {
-  return {
-    type: CHANGE_FILTER,
-    filter,
   };
 }

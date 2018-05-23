@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.section`
+const Wrapper = styled.button`
   display: flex;
-  justify-content: space-between;
-  padding: 1em 0;
-  flex: 1;
-  .Select-control {
-    width: 300px;
-  }
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5em;
+  font-weight: bold;
+  font-size: 2.5em;
 `;
 
 export default Wrapper;

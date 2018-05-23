@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  padding: 2px;
+const Wrapper = styled.section`
+  
 `;
 
 export default Wrapper;

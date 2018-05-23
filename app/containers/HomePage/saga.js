@@ -7,10 +7,10 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { reposLoaded, reposLoadingError, issuesLoaded, issuesLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectState, makeSelectFilter, makeSelectUsername, makeSelectReponame, makeSelectSinceDate, makeSelectSortBy, makeSelectSortOrder } from 'containers/HomePage/selectors';
+import { makeSelectState, makeSelectUsername, makeSelectReponame, makeSelectSinceDate, makeSelectSortBy, makeSelectSortOrder, makeSelectAssignee, makeSelectMilestone, makeSelectCreator, makeSelectMentioned, makeSelectLabels } from 'containers/HomePage/selectors';
 
 import { LOAD_ISSUES } from '../App/constants';
-import { CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER, CHANGE_FILTER, CHANGE_STATE } from './constants';
+import { CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER, CHANGE_STATE, CHANGE_ASSIGNEE, CHANGE_CREATOR, CHANGE_MILESTONE, CHANGE_LABELS, CHANGE_MENTIONED } from './constants';
 
 /**
  * Github repos request/response handler
@@ -42,9 +42,17 @@ export function* getIssues() {
   const sortParams = sort ? `&sort=${sort}&direction=${sortOrder ? 'asc' : 'desc'}` : '';
   const state = yield select(makeSelectState());
   const stateParam = state ? `&state=${state}` : '';
-  const filter = yield select(makeSelectFilter());
-  const filterParam = state ? `&filter=${filter}` : '';
-  const requestURL = `https://api.github.com/repos/${username}/${reponame}/issues?per_page=100${stateParam}${filterParam}${sinceDateParam}${sortParams}`;
+  const assignee = yield select(makeSelectAssignee());
+  const assigneeParam = assignee ? `&assignee=${assignee}` : '';
+  const creator = yield select(makeSelectCreator());
+  const creatorParam = creator ? `&creator=${creator}` : '';
+  const mentioned = yield select(makeSelectMentioned());
+  const mentionedParam = mentioned ? `&mentioned=${mentioned}` : '';
+  const labels = yield select(makeSelectLabels());
+  const labelsParam = labels ? `&labels=${labels}` : '';
+  const milestone = yield select(makeSelectMilestone());
+  const milestoneParam = milestone ? `&milestone=${milestone}` : '';
+  const requestURL = `https://api.github.com/repos/${username}/${reponame}/issues?per_page=500${stateParam}${sinceDateParam}${sortParams}${assigneeParam}${mentionedParam}${creatorParam}${labelsParam}${milestoneParam}`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -68,6 +76,10 @@ export default function* githubData() {
   yield takeLatest(CHANGE_SINCE_DATE, getIssues);
   yield takeLatest(CHANGE_SORT_BY, getIssues);
   yield takeLatest(CHANGE_SORT_ORDER, getIssues);
-  yield takeLatest(CHANGE_FILTER, getIssues);
   yield takeLatest(CHANGE_STATE, getIssues);
+  yield takeLatest(CHANGE_ASSIGNEE, getIssues);
+  yield takeLatest(CHANGE_CREATOR, getIssues);
+  yield takeLatest(CHANGE_MILESTONE, getIssues);
+  yield takeLatest(CHANGE_LABELS, getIssues);
+  yield takeLatest(CHANGE_MENTIONED, getIssues);
 }

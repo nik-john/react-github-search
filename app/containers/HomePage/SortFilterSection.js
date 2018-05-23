@@ -3,11 +3,37 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
-import SortFilter from '../../components/SortFilter';
+import SelectFilter from '../../components/SelectFilterComponent';
+import SortOrder from '../../components/SortFilter/SortOrder';
 import { makeSelectSortBy, makeSelectSortOrder } from './selectors';
+import messages from './messages';
 import { changeSortBy, changeSortOrder } from './actions';
 import { SORT_OPTIONS } from './constants';
+
+const Wrapper = styled.section`
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  padding: 1em 0;
+  align-items: center;
+  > div {
+    display: flex;
+    flex: 2;
+  }
+  > section {
+    display: flex;
+    flex: 8;
+  }
+  button {
+    &:focus, &:active {
+      outline: none;
+    }
+  }
+`;
+
+
 export class SortFilterSection extends React.PureComponent {// eslint-disable-line react/prefer-stateless-function
   componentWillReceiveProps(props) {
     if (props.sortBy !== this.props.sortBy) {
@@ -24,7 +50,10 @@ export class SortFilterSection extends React.PureComponent {// eslint-disable-li
   render() {
     const { sortBy, onChangeSortBy, onChangeSortOrder } = this.props;
     const sortOrder = typeof this.props.sortOrder !== 'boolean' ? true : this.props.sortOrder;
-    return <SortFilter sortBy={sortBy || SORT_OPTIONS[0]} handleChange={onChangeSortBy} sortOrder={sortOrder} handleToggleSortOrder={onChangeSortOrder} />;
+    return (<Wrapper>
+      <SortOrder handleToggle={onChangeSortOrder} sortOrder={sortOrder} />
+      <SelectFilter value={sortBy || SORT_OPTIONS[0]} handleChange={onChangeSortBy} label={messages.sortLabel} options={SORT_OPTIONS} />
+    </Wrapper>);
   }
 }
 

@@ -12,7 +12,7 @@
 import { fromJS } from 'immutable';
 
 import {
-  CHANGE_USERNAME, CHANGE_REPONAME, CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER, SORT_OPTIONS, STATE_OPTIONS, CHANGE_STATE, CHANGE_FILTER, FILTER_OPTIONS,
+  CHANGE_USERNAME, CHANGE_REPONAME, CHANGE_SINCE_DATE, CHANGE_SORT_BY, CHANGE_SORT_ORDER, SORT_OPTIONS, STATE_OPTIONS, CHANGE_STATE, CHANGE_ASSIGNEE, CHANGE_CREATOR, CHANGE_MENTIONED, CHANGE_LABELS, CHANGE_MILESTONE,
 } from './constants';
 
 // The initial state of the App
@@ -23,7 +23,11 @@ const initialState = fromJS({
   sortBy: SORT_OPTIONS[0],
   sortOrder: null,
   state: STATE_OPTIONS[0],
-  filter: FILTER_OPTIONS[0],
+  assignee: '',
+  creator: '',
+  mentioned: '',
+  milestone: '',
+  labels: '',
 });
 
 function homeReducer(state = initialState, action) {
@@ -47,9 +51,21 @@ function homeReducer(state = initialState, action) {
     case CHANGE_STATE:
       return state
         .set('state', action.state);
-    case CHANGE_FILTER:
+    case CHANGE_ASSIGNEE:
       return state
-        .set('filter', action.filter);
+        .set('assignee', action.assignee);
+    case CHANGE_CREATOR:
+      return state
+        .set('creator', action.creator);
+    case CHANGE_MENTIONED:
+      return state
+        .set('mentioned', action.mentioned);
+    case CHANGE_LABELS:
+      return state
+        .set('labels', action.labels);
+    case CHANGE_MILESTONE:
+      return state
+        .set('milestone', action.milestone);
     default:
       return state;
   }

@@ -11,20 +11,23 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectIssues, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
-// import H2 from 'components/H2';
-// import ReposList from 'components/ReposList';
 import IssuesList from 'components/IssuesList';
 import AtPrefix from './AtPrefix';
 import Form from './Form';
-import Input from './Input';
+import Wrapper from './Wrapper';
 import DateFilterSection from './DateFilterSection';
 import SortFilterSection from './SortFilterSection';
 import StateFilterSection from './StateFilterSection';
-import FilterFilterSection from './FilterFilterSection';
+import AssigneeFilterSection from './AssigneeFilterSection';
+import MentionedFilterSection from './MentionedFilterSection';
+import CreatorFilterSection from './CreatorFilterSection';
+import LabelsFilterSection from './LabelsFilterSection';
+import MilestoneFilterSection from './MilestoneFilterSection';
 import Section from './Section';
 import messages from './messages';
 import { loadIssues } from '../App/actions';
@@ -50,47 +53,80 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       error,
       issues,
     };
+    const TextFieldsWrapper = styled.section`
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 1em 0;
+      align-items: center;
+      flex-flow: row wrap;
+    `;
+    const SelectFieldsWrapper = styled.section`
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 1em 0;
+      align-items: center;
+      flex-flow: row wrap;
+    `;
+
     return (
-      <article>
+      <Wrapper>
         <Helmet>
           <title>Home Page</title>
           <meta name="description" content="A React.js Application for searching GitHub issues" />
         </Helmet>
         <div>
           <Section>
+            <em>
+              <FormattedMessage {...messages.showIssuesFor} />
+              <AtPrefix>
+                <FormattedMessage {...messages.atPrefix} />
+              </AtPrefix>
+              {this.props.username}
+              <em>/</em>
+              {this.props.reponame}
+              <strong>&nbsp;- {this.props.issues.length || '...' } item(s)</strong>
+            </em>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
-                <FormattedMessage {...messages.showIssuesFor} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.atPrefix} />
-                </AtPrefix>
-                <Input
+                <input
                   id="username"
-                  type="text"
+                  type="hidden"
                   placeholder="atom"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
                   disabled
                 />
               </label>
-              <em>/</em>
-              <Input
-                id="reponame"
-                type="text"
-                placeholder="atom"
-                value={this.props.reponame}
-                onChange={this.props.onChangeReponame}
-                disabled
-              />
+              <label htmlFor="reponame">
+                <input
+                  id="reponame"
+                  type="hidden"
+                  placeholder="atom"
+                  value={this.props.reponame}
+                  onChange={this.props.onChangeReponame}
+                  disabled
+                />
+              </label>
               {/* <FilterFilterSection /> */}
-              <StateFilterSection />
-              <DateFilterSection />
+              <TextFieldsWrapper>
+                <AssigneeFilterSection />
+                <MentionedFilterSection />
+                <CreatorFilterSection />
+                <LabelsFilterSection />
+                <MilestoneFilterSection />
+              </TextFieldsWrapper>
+              <SelectFieldsWrapper>
+                <StateFilterSection />
+                <DateFilterSection />
+              </SelectFieldsWrapper>
               <SortFilterSection />
             </Form>
             <IssuesList {...issuesListProps} />
           </Section>
         </div>
-      </article>
+      </Wrapper>
     );
   }
 }

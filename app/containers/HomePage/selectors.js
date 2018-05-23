@@ -30,9 +30,25 @@ const makeSelectState = () => createSelector(
   selectHome,
   (homeState) => homeState.get('state')
 );
-const makeSelectFilter = () => createSelector(
+const makeSelectCreator = () => createSelector(
   selectHome,
-  (homeState) => homeState.get('filter')
+  (homeState) => homeState.get('creator')
+);
+const makeSelectAssignee = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('assignee')
+);
+const makeSelectMentioned = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('mentioned')
+);
+const makeSelectMilestone = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('milestone')
+);
+const makeSelectLabels = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('labels')
 );
 
 export {
@@ -43,5 +59,9 @@ export {
   makeSelectSortBy,
   makeSelectSortOrder,
   makeSelectState,
-  makeSelectFilter,
+  makeSelectAssignee,
+  makeSelectCreator,
+  makeSelectLabels,
+  makeSelectMilestone,
+  makeSelectMentioned,
 };

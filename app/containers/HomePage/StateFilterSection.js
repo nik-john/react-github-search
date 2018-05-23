@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import StateFilter from '../../components/StateFilter';
+import SelectFilter from '../../components/SelectFilterComponent';
 import { makeSelectState } from './selectors';
 import { changeState } from './actions';
+import messages from './messages';
 import { STATE_OPTIONS } from './constants';
+
 export class StateFilterSection extends React.PureComponent {// eslint-disable-line react/prefer-stateless-function
   componentWillReceiveProps(props) {
     if (props.state !== this.props.state) {
@@ -18,7 +20,7 @@ export class StateFilterSection extends React.PureComponent {// eslint-disable-l
   }
   render() {
     const { state, onChangeState } = this.props;
-    return <StateFilter state={state || STATE_OPTIONS[0]} handleChange={onChangeState} />;
+    return <SelectFilter value={state || STATE_OPTIONS[0]} handleChange={onChangeState} label={messages.stateLabel} options={STATE_OPTIONS} />;
   }
 }
 

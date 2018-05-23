@@ -5,32 +5,29 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 import Wrapper from './Wrapper';
-import messages from './messages';
-import { FILTER_OPTIONS } from '../../containers/HomePage/constants';
+import { SORT_OPTIONS, STATE_OPTIONS } from '../../containers/HomePage/constants';
 function createOption(option) {
   return { value: option, label: option };
 }
-function FilterFilter(props) {
-  const optionsObjectArray = FILTER_OPTIONS.map(createOption);
+function SelectFilterComponent(props) {
+  const optionsObjectArray = props.options.map(createOption);
   return (
     <Wrapper>
-      <FormattedMessage {...messages.label} />
+      <FormattedMessage {...props.label} className="label" />
       <Select
         options={optionsObjectArray}
-        value={props.filter}
+        value={props.value}
         onChange={props.handleChange}
       />
     </Wrapper>
   );
 }
 
-FilterFilter.propTypes = {
-  filter: PropTypes.oneOf(FILTER_OPTIONS),
+SelectFilterComponent.propTypes = {
+  options: PropTypes.oneOf([SORT_OPTIONS, STATE_OPTIONS]),
+  value: PropTypes.string,
   handleChange: PropTypes.func,
+  label: PropTypes.any,
 };
 
-FilterFilter.defaultprops = {
-  sortBy: FILTER_OPTIONS[0],
-};
-
-export default FilterFilter;
+export default SelectFilterComponent;
