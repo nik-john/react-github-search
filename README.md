@@ -9,7 +9,8 @@
 <br />
 
 
-### Click [here](https://nik-john.github.io/react-github-search) to see the Live Demo
+### ~Click [here](https://nik-john.github.io/) to see the Live Demo~ 
+The live demo is broken as of now due to a path issue. I'm working to resolve this. In the meantime, I would request you to clone the repo and set up the project on your machine.
 
 ## Features
 
