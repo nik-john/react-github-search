@@ -2,9 +2,14 @@
 <div align="center"><strong>A Simple GitHub Issue Search App</strong></div>
 <div align="center">This application has been built using React, Redux, Styled Components and lots of ❤️ </div>
 
+<br />
+
 ![](https://i.imgur.com/aowrS8w.png)
 
 <br />
+
+
+### Click [here](https://nik-john.github.io/react-github-search) to see the Live Demo
 
 ## Features
 
